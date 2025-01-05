@@ -14,12 +14,13 @@ export default {
         },
       },
       fontFamily: {
-        mono: "Roboto Mono, monospace",
+        pizza: "Roboto Mono, monospace",
       },
     },
   },
   variants: {
     scrollbar: ["responsive"],
+    extend: { fontWeight: ["responsive", "hover", "focus"] },
   },
   plugins: [
     function ({ addUtilities }) {
