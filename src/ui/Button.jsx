@@ -7,10 +7,11 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   path: PropTypes.string,
   type: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 //reusable button
-function Button({ children, disabled, path, type }) {
+function Button({ children, disabled, path, type, onClick }) {
   const base =
     "text-sm inline-block rounded-full bg-yellow-400 font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 ease-in-out hover:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed";
   const buttonStyles = {
@@ -26,8 +27,20 @@ function Button({ children, disabled, path, type }) {
       </Link>
     );
   }
+  if (onClick) {
+    return (
+      <button
+        type="submit"
+        onClick={onClick}
+        disabled={disabled}
+        className={buttonStyles[type]}
+      >
+        {children}
+      </button>
+    );
+  }
   return (
-    <button disabled={disabled} className={buttonStyles[type]}>
+    <button type="submit" disabled={disabled} className={buttonStyles[type]}>
       {children}
     </button>
   );
