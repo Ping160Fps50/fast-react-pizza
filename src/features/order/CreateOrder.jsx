@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Button from "../../ui/Button";
 
 const fakeCart = [
@@ -29,19 +30,26 @@ const fakeCart = [
 function CreateOrder() {
   // const [withPriority, setWithPriority] = useState(false);
   const navigation = useNavigation();
+  const username = useSelector((store) => store.user.username);
   const isSubmitting = navigation.state === "submitting";
   const formErrors = useActionData();
   const cart = fakeCart;
 
   return (
     <div className="px-4 py-6">
-      <h2 className="font-semibold mb-8 text-xl ">Ready to order? Lets go!</h2>
+      <h2 className="mb-8 text-xl font-semibold">Ready to order? Lets go!</h2>
 
       {/* <Form method="POST" action="/order/new"> */}
       <Form method="POST">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40">First Name</label>
-          <input type="text" name="customer" className="input grow" required />
+          <input
+            type="text"
+            name="customer"
+            defaultValue={username}
+            className="input grow"
+            required
+          />
         </div>
 
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -49,17 +57,26 @@ function CreateOrder() {
           <div className="grow">
             <input type="tel" name="phone" className="input w-full" required />
           </div>
-          {formErrors?.phone && <p className="mt-2 text-xs text-red-700 bg-red-100 p-2 rounded-md">{formErrors.phone}</p>}
+          {formErrors?.phone && (
+            <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
+              {formErrors.phone}
+            </p>
+          )}
         </div>
 
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40">Address</label>
           <div className="grow">
-            <input type="text" name="address" className="input w-full" required />
+            <input
+              type="text"
+              name="address"
+              className="input w-full"
+              required
+            />
           </div>
         </div>
 
-        <div className="mb-12 flex gap-5 items-center">
+        <div className="mb-12 flex items-center gap-5">
           <input
             type="checkbox"
             name="priority"
@@ -68,7 +85,9 @@ function CreateOrder() {
             // value={withPriority}
             // onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor="priority" className="font-medium">Want to yo give your order priority?</label>
+          <label htmlFor="priority" className="font-medium">
+            Want to yo give your order priority?
+          </label>
         </div>
 
         <div>
