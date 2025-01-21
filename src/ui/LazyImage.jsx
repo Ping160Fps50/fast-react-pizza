@@ -19,11 +19,7 @@ function LazyImage({ src, alt, styles }) {
 
   useEffect(() => {
     if (inView) {
-      const timer = setTimeout(() => {
-        setShowPlaceholder(false);
-      }, 1000); // 2 seconds delay
-
-      return () => clearTimeout(timer);
+      setShowPlaceholder(false);
     }
   }, [inView]);
 
